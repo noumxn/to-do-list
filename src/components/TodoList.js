@@ -4,7 +4,8 @@ import Todo from "./Todo";
 
 export default class TodoList extends React.Component {
   state = {
-    todos: []
+    todos: [],
+    todoToShow: "all"
   }
 
   addTodo = (todo) => {
@@ -30,24 +31,47 @@ export default class TodoList extends React.Component {
     });
   };
 
+  updateTodoToShow = (s) => {
+    this.setState({
+      todoToShow: s
+    })
+  }
+
+  handleDelete = () => {
+
+  }
+
   render() {
+    let todos = [];
+
+    if (this.state.todoToShow === "all") {
+      todos = this.state.todos;
+    } else if (this.state.todoToShow === "active") {
+      todos = this.state.todos.filter(todo => !todo.complete)
+    } else if (this.state.todoToShow === "complete") {
+      todos = this.state.todos.filter(todo => todo.complete)
+    }
+
     return (
       <div>
         <TodoForm onSubmit={this.addTodo} />
         <div>Tasks Left: {this.state.todos.filter(todo => !todo.complete).length}</div>
         <div>
-          <button>All Tasks</button>
-          <button>Pending Tasks</button>
-          <button>Completed Tasks</button>
-        </div>
-        {this.state.todos.map(todo => (
-          <Todo
-            key={todo.id}
-            toggleComplete={() => this.toggleComplete(todo.id)}
-            todo={todo}
-          />
-        ))}
-      </div>
+          <button onClick={() => this.updateTodoToShow("all")}>All</button>
+          <button onClick={() => this.updateTodoToShow("active")}>Pending Tasks</button>
+          <button onClick={() => this.updateTodoToShow("complete")}>Completed Tasks</button>
+        </div >
+        {
+          todos.map(todo => (
+            <Todo
+              key={todo.id}
+              toggleComplete={() => this.toggleComplete(todo.id)}
+              onDelete={() => this.handleDelete(todo.id)}
+              todo={todo}
+            />
+          ))
+        }
+      </div >
     )
   }
 }
