@@ -31,12 +31,19 @@ export default class TodoForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
+          style={{
+            fontSize: 20,
+            margin: 20
+          }}
           name="text"
           value={this.state.text}
           onChange={this.handleChange}
           placeholder="todo..."
         />
         <button
+          style={{
+            fontSize: 20
+          }}
           type="submit"
         >
           SUBMIT

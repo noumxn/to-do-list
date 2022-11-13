@@ -7,13 +7,20 @@ export default (props) => (
   }}>
     <div
       style={{
-        fontSize: 15,
-        color: props.todo.complete ? "grey" : "black",
-        textDecoration: props.todo.complete ? "line-through" : ""
+        fontWeight: "bold",
+        marginLeft: 15,
+        marginRight: 15,
+        fontSize: 20,
+        color: props.todo.complete ? "green" : "black",
+        // textDecoration: props.todo.complete ? "line-through" : ""
       }}
       onClick={props.toggleComplete}
     >{props.todo.text}
     </div>
-    <button onClick={props.onDelete}>x</button>
+    <button
+      style={{
+        margin: 5
+      }}
+      onClick={props.onDelete}>Done</button>
   </div>
 );
